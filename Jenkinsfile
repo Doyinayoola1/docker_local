@@ -1,12 +1,12 @@
 pipeline{
   agent any
   tools {
-    maven 'maven3.9'
+    maven 'maven_1'
   }
   stages {
     stage('Git Clone'){
       steps{
-        git branch: 'main', url: 'https://github.com/ifediniru/docker_local.git'
+        git branch: 'main', url: 'https://github.com/Doyinayoola1/docker_local.git'
       }
     }
     // stage('Build containers'){
@@ -28,18 +28,20 @@ pipeline{
     }
     stage('Test artifact with sonar'){
       steps{
-        sh 'echo mvn sonar:sonar'
+        echo "Analysing with Sonar"
+        //sh 'echo mvn sonar:sonar -Dsonar.qoalitygait.wait=true'
       }
     }
     stage('Deploy to nexus'){
       steps{
-        sh 'mvn deploy -s ./settings.xml'
+        echo "deploy to nexus"
+        //sh 'mvn deploy -s ./settings.xml'
       }
     }
    stage('Tomcat'){
      steps {
       echo 'Pushing to Tomcat'
-        deploy adapters: [tomcat9(credentialsId: 'tomcat', path: '', url: 'http://172.31.36.205:8080/')], contextPath: null, war: 'target/*war'
+        deploy adapters: [tomcat9(credentialsId: 'tomcat-login', path: '', url: 'http://172.17.0.1:8090/')], contextPath: null, war: '**/target/*war'
          echo 'Done'
      }
     }
