@@ -1,5 +1,5 @@
 pipeline{
-  agent {label 'node-ubuntu'}
+  agent {label 'node_ubuntu'}
   tools {
     maven 'maven_1'
   }
