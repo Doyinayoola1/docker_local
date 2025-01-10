@@ -23,7 +23,7 @@ pipeline{
     stage('Execute maven package'){
       steps{
         echo 'package artifact'
-        sh 'mvn clean package'
+        //sh 'mvn clean package'
       }
     }
     stage('Test artifact with sonar'){
@@ -41,7 +41,7 @@ pipeline{
    stage('Tomcat'){
      steps {
       echo 'Pushing to Tomcat'
-        deploy adapters: [tomcat9(credentialsId: 'tomcat-login', path: '', url: 'http://172.17.0.1:8090/')], contextPath: null, war: '**/target/*war'
+        //deploy adapters: [tomcat9(credentialsId: 'tomcat-login', path: '', url: 'http://172.17.0.1:8090/')], contextPath: null, war: '**/target/*war'
          echo 'Done'
      }
     }
