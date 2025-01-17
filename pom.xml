@@ -5,7 +5,7 @@
 	<groupId>com.mt</groupId>
 	<artifactId>maven-web-application</artifactId>
 	<packaging>war</packaging>
-	<version>2.0.7-SNAPSHOT</version>
+	<version>2.0.7-RELEASE</version>
 
 
 	<name>maven-web-application</name>
@@ -99,13 +99,13 @@
 	    <repository>
 	      <id>acada-release</id>
 	      <name>ACADA Learning release Nexus Repository</name>
-	      <url>http://172.18.0.1:8081/repository/mav_sonar-release/</url>
+	      <url>http://nexus:8081/repository/maven-sonar-release/</url>
 	    </repository>
 
 	    <snapshotRepository>
 	      <id>acada-snapshot</id>
 	      <name>ACADA Learning snapshot Nexus Repository </name>
-	      <url>http://172.18.0.1:8081/repository/mav_sonar-snapshot/</url>
+	      <url>http://nexus:8081/repository/maven-sonar-snapshot/</url>
 	    </snapshotRepository>
 
 	</distributionManagement>
