@@ -97,14 +97,14 @@
 
 	<distributionManagement>
 	    <repository>
-	      <id>acada-release</id>
-	      <name>ACADA Learning release Nexus Repository</name>
+	      <id>doyin-release</id>
+	      <name>Doyin org release Nexus Repository</name>
 	      <url>http://localhost:8081/repository/maven-sonar-release/</url>
 	    </repository>
 
 	    <snapshotRepository>
 	      <id>acada-snapshot</id>
-	      <name>ACADA Learning snapshot Nexus Repository </name>
+	      <name>Doyin org snapshot Nexus Repository </name>
 	      <url>http://localhost:8081/repository/maven-sonar-snapshot/</url>
 	    </snapshotRepository>
 
