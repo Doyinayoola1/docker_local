@@ -1,0 +1,10 @@
+FROM jenkins/jenkins:jdk17
+COPY  #from source to folder in the docker image
+ADD #download from internet and put into a folder in docker image
+USER node
+LABEL version=""4.5.6"
+EXPOSE #show the port you want to run on
+RUN #to run certain commands
+CMD #run a certain command when a container starts ["echo" "Hello world!"]-executable form without using a shell
+#CMD command can be overwritten. only the last CMD command is executed if you have consecutive CMD commands
+ENTRYPOINT ["echo" "hello world"] this cannot be overwritten
