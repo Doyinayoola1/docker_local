@@ -38,12 +38,12 @@ pipeline{
         //sh 'mvn deploy -s ./settings.xml'
       }
     }
-   stage('Tomcat'){
-     steps {
-      echo 'Pushing to Tomcat'
-        //deploy adapters: [tomcat9(credentialsId: 'tomcat-login', path: '', url: 'http://172.17.0.1:8090/')], contextPath: null, war: '**/target/*war'
-         echo 'Done finally'
-     }
-    }
+   // stage('Tomcat'){
+   //   steps {
+   //    echo 'Pushing to Tomcat'
+   //      //deploy adapters: [tomcat9(credentialsId: 'tomcat-login', path: '', url: 'http://172.17.0.1:8090/')], contextPath: null, war: '**/target/*war'
+   //       echo 'Done finally'
+   //   }
+   //  }
   }
 }
