@@ -25,7 +25,7 @@ pipeline{
     // }
     stage('Execute maven package'){
       steps{
-        echo 'package artifact fully'
+        echo 'package artifact fully loaded'
         //sh 'mvn clean package'
       }
     }
