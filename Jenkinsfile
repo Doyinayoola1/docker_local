@@ -34,7 +34,7 @@ pipeline{
     }
     stage('Deploy to nexus'){
       steps{
-        echo "deploy to nexus"
+        echo "deploy to nexus repo"
         //sh 'mvn deploy -s ./settings.xml'
       }
     }
