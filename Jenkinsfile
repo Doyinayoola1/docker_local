@@ -2,9 +2,9 @@ pipeline{
   agent {label 'linux && x86'}
   tools {
     maven 'maven_1'
-  triggers {
-        githubPush()
-    }
+  // triggers {
+  //       githubPush()
+  //   }
   }
   stages {
     stage('Git Clone'){
