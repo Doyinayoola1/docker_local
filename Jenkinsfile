@@ -1,7 +1,7 @@
 pipeline{
   agent {label 'linux && x86'}
   tools {
-    maven 'maven_1'
+    maven 'maven1'
   // triggers {
   //       githubPush()
   //   }
