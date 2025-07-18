@@ -22,7 +22,7 @@ pipeline{
     // }
     stage('Execute maven package'){
       steps{
-        echo 'package artifact'
+        echo 'package artifact fully'
         //sh 'mvn clean package'
       }
     }
