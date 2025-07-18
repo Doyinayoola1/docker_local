@@ -42,7 +42,7 @@ pipeline{
      steps {
       echo 'Pushing to Tomcat'
         //deploy adapters: [tomcat9(credentialsId: 'tomcat-login', path: '', url: 'http://172.17.0.1:8090/')], contextPath: null, war: '**/target/*war'
-         echo 'Done'
+         echo 'Done finally'
      }
     }
   }
