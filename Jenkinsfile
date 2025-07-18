@@ -29,7 +29,7 @@ pipeline{
         //sh 'mvn clean package'
       }
     }
-    stage('Test artifact with sonar'){
+    stage('Test artifact with sonarqube'){
       steps{
         echo "Analysing with Sonar"
         //sh 'echo mvn sonar:sonar -Dsonar.qoalitygait.wait=true'
