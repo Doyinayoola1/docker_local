@@ -1,5 +1,6 @@
 pipeline{
-  agent {label 'linux && x86'}
+  agent any 
+  //{label 'linux && x86'}
   tools {
     maven 'maven1'
   // triggers {
