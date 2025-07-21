@@ -200,10 +200,21 @@
 			</plugin>
 
 			<plugin>
-			    <groupId>org.sonarsource.scanner.maven</groupId>
-			    <artifactId>sonar-maven-plugin</artifactId>
-			    <version>3.9.1.2184</version>
-			</plugin>
+		            <groupId>org.sonarsource.scanner.maven</groupId>
+		            <artifactId>sonar-maven-plugin</artifactId>
+		            <version>3.9.1.2184</version>
+		            <dependencies>
+		                <!-- Force compatible logback version -->
+		                <dependency>
+		                    <groupId>ch.qos.logback</groupId>
+		                    <artifactId>logback-classic</artifactId>
+		                    <version>1.2.11</version>
+		                </dependency>
+		            </dependencies>
+		            <configuration>
+		                <sonar.scanner.dontLoadExternalDependencies>true</sonar.scanner.dontLoadExternalDependencies>
+		            </configuration>
+		        </plugin>
 
 			
 </plugins>
