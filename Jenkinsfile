@@ -50,7 +50,7 @@ pipeline{
         echo "building container"
         sh 'docker build -t tomcat-jenk'
       }
-    }-----
+    }
     stage('Initializing container'){
       steps{
         sh 'echo waiting for all container services to be up'
