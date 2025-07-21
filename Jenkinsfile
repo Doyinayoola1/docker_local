@@ -1,11 +1,11 @@
 pipeline{
-  agent any 
+  agent 'dockered' 
   //{label 'linux && x86'}
   tools {
     maven 'maven1'
-  // triggers {
-  //       githubPush()
-  //   }
+  triggers {
+        githubPush()
+    }
   }
   stages {
     stage('Git Clone'){
@@ -13,27 +13,48 @@ pipeline{
         git branch: 'main', url: 'https://github.com/Doyinayoola1/docker_local.git'
       }
     }
-    // stage('Build containers'){
-    //   steps{
-    //     sh 'docker-compose up -d'
-    //   }
-    // }
-    // stage('Initializing container'){
-    //   steps{
-    //     sh 'echo waiting for all container services to be up'
-    //     sh 'sleep 60'
-    //   }
-    // }
-    stage('Execute maven package'){
+   
+    stage('Packaging artifact'){
       steps{
-        echo 'package artifact fully loaded'
-        //sh 'mvn clean package'
+        echo 'building package with maven '
+        sh 'mvn clean package'
       }
     }
     stage('Test artifact with sonarqube'){
       steps{
         echo "Analysing with Sonar"
-        //sh 'echo mvn sonar:sonar -Dsonar.qoalitygait.wait=true'
+        //sh 'echo mvn sonar:sonar -Dsonar.qualitygate.wait=true'
+        withSonarQubeEnv('SonarQubeServer') {
+          withCredentials([string(credentialsId: 'local-sonarqube', variable: 'sonarlog')]) {
+            sh '''
+              mvn sonar:sonar \
+                -Dsonar.projectKey=jenkins-project \
+                -Dsonar.projectName=jenkins-project \
+                -Dsonar.host.url=http://host.docker.internal:9000 \
+                -Dsonar.login=$sonarlog
+        '''
+          }
+        }
+      }
+    }
+    stage('Quality Gate'){
+      steps{
+        echo "Waiting for SonarQube Quality Gate"
+        timeout(time: 1, unit: 'HOURS') {
+          waitForQualityGate abortPipeline: true
+        }
+      }
+    }
+    stage('Build containers'){
+      steps{
+        echo "building container"
+        sh 'docker build -t tomcat-jenk'
+      }
+    }-----
+    stage('Initializing container'){
+      steps{
+        sh 'echo waiting for all container services to be up'
+        sh 'sleep 30'
       }
     }
     stage('Deploy to nexus'){
