@@ -37,6 +37,7 @@ pipeline{
                 -Dsonar.host.url=http://host.docker.internal:9000 \
                 -Dsonar.login=$sonarlog \
                 -Dsonar.scanner.dontLoadExternalDependencies=true \
+                -Dlogback.configurationFile=logback.xml \
                 -Dsonar.verbose=true
         '''
           }
