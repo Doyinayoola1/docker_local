@@ -1,7 +1,7 @@
 pipeline{
-  agent any 
-    //{label 'docker-agent'
-  //}
+  agent 
+    {label 'docker-agent'
+  }
   //{label 'linux && x86'}
   tools {
     maven 'maven1'
@@ -29,14 +29,14 @@ pipeline{
         echo "Analysing with Sonar"
         sh 'mvn dependency:tree -Dincludes=ch.qos.logback'
         //sh 'echo mvn sonar:sonar -Dsonar.qualitygate.wait=true'
-        withSonarQubeEnv('SonarQubeServer') {
+        withSonarQubeEnv('SonarQubeServer2') {
           withCredentials([string(credentialsId: 'local-sonarqube', variable: 'sonarlog')]) {
             sh '''
               mvn sonar:sonar \
                 -Dsonar.projectKey=jenkins-project \
                 -Dsonar.projectName=jenkins-project \
                 -Dsonar.host.url=http://host.docker.internal:9000 \
-                -Dsonar.host.url=http://localhost:9000\
+                //-Dsonar.host.url=http://localhost:9000\
                 -Dsonar.login=$sonarlog \
                 -Dsonar.scanner.dontLoadExternalDependencies=true \
                 -Dlogback.configurationFile=logback.xml \
@@ -63,7 +63,7 @@ pipeline{
     stage('Initializing container'){
       steps{
         sh 'echo waiting for all container services to be up'
-        sh 'sleep 30'
+        sh 'sleep 10'
       }
     }
     stage('Deploy to nexus'){
