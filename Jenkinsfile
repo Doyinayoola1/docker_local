@@ -27,6 +27,7 @@ pipeline{
     stage('Test artifact with sonarqube'){
       steps{
         echo "Analysing with Sonar"
+        sh 'mvn dependency:go-offline'
         sh 'mvn dependency:tree -Dincludes=ch.qos.logback'
         //sh 'echo mvn sonar:sonar -Dsonar.qualitygate.wait=true'
         withSonarQubeEnv('SonarQubeServer2') {
