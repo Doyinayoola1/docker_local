@@ -72,12 +72,17 @@ pipeline{
         //sh 'mvn deploy -s ./settings.xml'
       }
     }
-   // stage('Tomcat'){
-   //   steps {
-   //    echo 'Pushing to Tomcat'
-   //      //deploy adapters: [tomcat9(credentialsId: 'tomcat-login', path: '', url: 'http://172.17.0.1:8090/')], contextPath: null, war: '**/target/*war'
-   //       echo 'Done finally finally'
-   //   }
-   //  }
+    stage('Push to Docker Hub'){
+      steps{
+        withCredentials([usernamePassword(credentialsId: 'Docker-login', passwordVariable: 'Docker_pass', usernameVariable: 'Docker_user')]) {
+        echo 'Pushing to Docker Hub'
+        sh 'set -e'
+        sh 'echo "$Docker_pass" | docker login -u "$Docker_user" --password-stdin'
+        //sh 'docker tag tomcat-jenk doyinayoola1/tomcat-jenk:latest'
+        //sh 'docker push doyinayoola1/tomcat-jenk:latest'
+        }
+      }
+    }
+    
   }
 }
