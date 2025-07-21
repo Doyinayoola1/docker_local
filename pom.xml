@@ -44,6 +44,34 @@
     			<artifactId>logback-classic</artifactId>
     			<version>1.2.11</version> <!-- or a known stable version -->
 		</dependency>
+		<!-- Replace your existing JGit dependency with this -->
+		<dependency>
+		    <groupId>org.eclipse.jgit</groupId>
+		    <artifactId>org.eclipse.jgit</artifactId>
+		    <version>5.13.0.202109080827-r</version>
+		    <exclusions>
+		        <exclusion>
+		            <groupId>ch.qos.logback</groupId>
+		            <artifactId>logback-classic</artifactId>
+		        </exclusion>
+		        <exclusion>
+		            <groupId>ch.qos.logback</groupId>
+		            <artifactId>logback-core</artifactId>
+		        </exclusion>
+		        <exclusion>
+		            <groupId>org.slf4j</groupId>
+		            <artifactId>slf4j-api</artifactId>
+		        </exclusion>
+		    </exclusions>
+		</dependency>
+		
+		<!-- Then ensure your own logback and slf4j dependencies are explicitly defined -->
+		<dependency>
+		    <groupId>ch.qos.logback</groupId>
+		    <artifactId>logback-classic</artifactId>
+		    <version>1.2.11</version>
+		</dependency>
+		
 		<dependency>
 		    <groupId>ch.qos.logback</groupId>
 		    <artifactId>logback-core</artifactId>
@@ -55,12 +83,7 @@
 		    <artifactId>slf4j-api</artifactId>
 		    <version>1.7.36</version>
 		</dependency>
-		
-		<dependency>
-		    <groupId>org.eclipse.jgit</groupId>
-		    <artifactId>org.eclipse.jgit</artifactId>
-		    <version>5.13.0.202109080827-r</version>
-		</dependency>
+
 		
 		<!-- test dependencies -->
 		<dependency>
