@@ -26,6 +26,7 @@ pipeline{
     stage('Test artifact with sonarqube'){
       steps{
         echo "Analysing with Sonar"
+        sh 'mvn dependency:tree -Dincludes=ch.qos.logback'
         //sh 'echo mvn sonar:sonar -Dsonar.qualitygate.wait=true'
         withSonarQubeEnv('SonarQubeServer') {
           withCredentials([string(credentialsId: 'local-sonarqube', variable: 'sonarlog')]) {
@@ -35,7 +36,8 @@ pipeline{
                 -Dsonar.projectName=jenkins-project \
                 -Dsonar.host.url=http://host.docker.internal:9000 \
                 -Dsonar.login=$sonarlog \
-                -Dsonar.scanner.dontLoadExternalDependencies=true
+                -Dsonar.scanner.dontLoadExternalDependencies=true \
+                -Dsonar.verbose=true
         '''
           }
         }
