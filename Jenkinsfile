@@ -1,7 +1,7 @@
 pipeline{
-  agent 
-    {label 'docker-agent'
-  }
+  agent any
+    //{label 'docker-agent'
+ // }
   //{label 'linux && x86'}
   tools {
     maven 'maven1'
@@ -30,13 +30,13 @@ pipeline{
         //sh 'mvn dependency:go-offline'
         sh 'mvn dependency:tree -Dincludes=ch.qos.logback'
         //sh 'echo mvn sonar:sonar -Dsonar.qualitygate.wait=true'
-        withSonarQubeEnv('SonarQubeServer2') {
+        withSonarQubeEnv('SonarQubeServer') {
           withCredentials([string(credentialsId: 'local-sonarqube', variable: 'sonarlog')]) {
             sh '''
               mvn sonar:sonar \
                 -Dsonar.projectKey=jenkins-project \
                 -Dsonar.projectName=jenkins-project \
-                -Dsonar.host.url=http://host.docker.internal:9000 \
+                -Dsonar.host.url=http://localhost:9000 \
                 -Dsonar.login=$sonarlog \
                 -Dsonar.scanner.dontLoadExternalDependencies=true \
                 -Dlogback.configurationFile=logback.xml \
