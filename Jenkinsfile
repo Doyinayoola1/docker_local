@@ -1,7 +1,7 @@
 pipeline{
-  agent{ 
-   label 'docker-agent'
-  }
+  agent any 
+    //{label 'docker-agent'
+  //}
   //{label 'linux && x86'}
   tools {
     maven 'maven1'
@@ -36,6 +36,7 @@ pipeline{
                 -Dsonar.projectKey=jenkins-project \
                 -Dsonar.projectName=jenkins-project \
                 -Dsonar.host.url=http://host.docker.internal:9000 \
+                -Dsonar.host.url=http://localhost:9000\
                 -Dsonar.login=$sonarlog \
                 -Dsonar.scanner.dontLoadExternalDependencies=true \
                 -Dlogback.configurationFile=logback.xml \
