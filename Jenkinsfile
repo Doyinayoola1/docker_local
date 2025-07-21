@@ -81,8 +81,8 @@ pipeline{
             echo 'Pushing to Docker Hub'
             set -e
             echo "$Docker_pass" | docker login -u "$Docker_user" --password-stdin
-            //docker tag tomcat-jenk doyinayoola1/tomcat-jenk:latest
-            //docker push doyinayoola1/tomcat-jenk:latest
+            docker tag tomcat-jenk doyinayoola1/tomcat-jenk:build-${BUILD_ID}
+            docker push doyinayoola1/tomcat-jenk:latest
           '''
         }
       }
