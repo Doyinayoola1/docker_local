@@ -16,7 +16,7 @@ pipeline{
       }
     }
    
-    stage('Packaging artifacts'){
+    stage('Packaging artifact'){
       steps{
         echo 'building package with maven '
         sh 'mvn clean package'
