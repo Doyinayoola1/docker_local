@@ -42,7 +42,7 @@
 		<dependency>
     			<groupId>ch.qos.logback</groupId>
     			<artifactId>logback-classic</artifactId>
-    			<version>1.4.14</version> <!-- or a known stable version -->
+    			<version>1.2.11</version> <!-- or a known stable version -->
 		</dependency>
 		
 		<!-- test dependencies -->
