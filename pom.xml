@@ -39,6 +39,12 @@
 			<artifactId>json</artifactId>
 			<version>20160212</version>
 		</dependency>
+		<dependency>
+    			<groupId>ch.qos.logback</groupId>
+    			<artifactId>logback-classic</artifactId>
+    			<version>1.4.14</version> <!-- or a known stable version -->
+		</dependency>
+		
 		<!-- test dependencies -->
 		<dependency>
 			<groupId>junit</groupId>
