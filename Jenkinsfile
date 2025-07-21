@@ -34,7 +34,7 @@ pipeline{
                 -Dsonar.projectKey=jenkins-project \
                 -Dsonar.projectName=jenkins-project \
                 -Dsonar.host.url=http://host.docker.internal:9000 \
-                -Dsonar.login=$sonarlog
+                -Dsonar.login=$sonarlog \
                 -Dsonar.scanner.dontLoadExternalDependencies=true
         '''
           }
