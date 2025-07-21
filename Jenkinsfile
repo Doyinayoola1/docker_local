@@ -75,11 +75,15 @@ pipeline{
     stage('Push to Docker Hub'){
       steps{
         withCredentials([usernamePassword(credentialsId: 'Docker-login', passwordVariable: 'Docker_pass', usernameVariable: 'Docker_user')]) {
-        echo 'Pushing to Docker Hub'
-        sh 'set -e'
-        sh 'echo "$Docker_pass" | docker login -u "$Docker_user" --password-stdin'
-        //sh 'docker tag tomcat-jenk doyinayoola1/tomcat-jenk:latest'
-        //sh 'docker push doyinayoola1/tomcat-jenk:latest'
+          sh '''
+            mkdir -p tmp_docker_home
+            export DOCKER_CONFIG=$PWD/tmp_docker_home
+            echo 'Pushing to Docker Hub'
+            set -e
+            echo "$Docker_pass" | docker login -u "$Docker_user" --password-stdin
+            //docker tag tomcat-jenk doyinayoola1/tomcat-jenk:latest
+            //docker push doyinayoola1/tomcat-jenk:latest
+          '''
         }
       }
     }
