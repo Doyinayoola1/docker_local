@@ -35,19 +35,20 @@ pipeline{
                 -Dsonar.projectName=jenkins-project \
                 -Dsonar.host.url=http://host.docker.internal:9000 \
                 -Dsonar.login=$sonarlog
+                -Dsonar.scanner.dontLoadExternalDependencies=true
         '''
           }
         }
       }
     }
-    // stage('Quality Gate'){
-    //   steps{
-    //     echo "Waiting for SonarQube Quality Gate"
-    //     timeout(time: 1, unit: 'HOURS') {
-    //       waitForQualityGate abortPipeline: true
-    //     }
-    //   }
-    // }
+    stage('Quality Gate'){
+      steps{
+        echo "Waiting for SonarQube Quality Gate"
+        timeout(time: 1, unit: 'HOURS') {
+          waitForQualityGate abortPipeline: true
+        }
+      }
+    }
     stage('Build containers'){
       steps{
         echo "building container"
