@@ -1,5 +1,5 @@
 pipeline{
-  agent 'dockered' 
+  agent 'docker-agent' 
   //{label 'linux && x86'}
   tools {
     maven 'maven1'
