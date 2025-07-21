@@ -19,6 +19,7 @@ pipeline{
     stage('Packaging artifact'){
       steps{
         echo 'building package with maven '
+        sh 'rm -rf ~/.m2/repository/ch/qos/logback'
         sh 'mvn clean install'
         sh 'mvn clean package'
       }
