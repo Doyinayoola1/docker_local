@@ -5,10 +5,10 @@ pipeline{
   //{label 'linux && x86'}
   tools {
     maven 'maven1'
+  }
   triggers {
         githubPush()
     }
-  }
   stages {
     stage('Git Clone'){
       steps{
