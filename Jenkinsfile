@@ -108,7 +108,7 @@ pipeline{
     stage('Deploy to Kubernetes'){
       steps{
         script {
-          kubeconfig(credentialsId: 'kubeconfig-file', serverUrl: '51.20.140.255:6443') {
+          kubeconfig(credentialsId: 'kubeconfig-file', serverUrl: '56.228.17.74:6443') {
             echo 'Kubernetes configuration set up successfully'
             echo 'Deploying to Kubernetes'
             sh '''
