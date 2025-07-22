@@ -105,6 +105,20 @@ pipeline{
         }
       }
     }
+    stage('Deploy to Kubernetes'){
+      steps{
+        script {
+          kubeconfig(credentialsId: 'kubeconfig', serverUrl: 'https://your-kubernetes-cluster-url') {
+            echo 'Kubernetes configuration set up successfully'
+          }
+        }
+        echo 'Deploying to Kubernetes'
+        sh '''
+          kubectl apply -f k8s/deployment.yaml
+          kubectl apply -f k8s/service.yaml
+        '''
+      }
+    }
   }
   post {
     success {
