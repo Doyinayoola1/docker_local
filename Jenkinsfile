@@ -108,34 +108,25 @@ pipeline{
   }
   post {
     success {
-        emailext (attachLog: true, to: 'unmask3230@gmail.com' )
+        emailext (attachLog: true, body: """Dear Developer,
+        Build number ${env.BUILD_ID} was completed Successfully
+
+        You can view details at: ${env.BUILD_URL}
+
+        Thank you.
+        Admin""", subject: "Build number ${env.BUILD_ID} Successful", to: 'unmask3230@gmail.com' )
     }
     failure {
-        emailext (attachLog: true, to: 'unmask3230@gmail.com')
+        emailext (attachLog: true, body: """Dear Developer,
+
+        Build number ${env.BUILD_ID} was completed Successfully
+
+        You can view details at: ${env.BUILD_URL}
+
+        Thank you.
+        Admin""", subject: "Build number ${env.BUILD_ID} Successful", to: 'unmask3230@gmail.com')
     }
   }
-  // add none default messages
-  // post {
-  //   success {
-  //       emailext (attachLog: true, body: """Dear Developer,
-  //       Build number ${env.BUILD_ID} was completed Successfully
-
-  //       You can view details at: ${env.BUILD_URL}
-
-  //       Thank you.
-  //       Admin""", subject: "Build number ${env.BUILD_ID} Successful", to: 'unmask3230@gmail.com' )
-  //   }
-  //   failure {
-  //       emailext (attachLog: true, body: """Dear Developer,
-
-  //       Build number ${env.BUILD_ID} was completed Successfully
-
-  //       You can view details at: ${env.BUILD_URL}
-
-  //       Thank you.
-  //       Admin""", subject: "Build number ${env.BUILD_ID} Successful", to: 'unmask3230@gmail.com')
-  //   }
-  // }
       
 
 }
