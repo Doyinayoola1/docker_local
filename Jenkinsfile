@@ -57,7 +57,7 @@ pipeline{
     stage('Check for Dockerfile changes') {
       steps {
         script {
-          def changes = sh(script: "git diff --name-only HEAD~1 HEAD | grep -E '^src/|^Dockerfile$'", returnStdout: true) == 0
+          def changes = sh(script: "git diff --name-only HEAD~1 HEAD | grep -E '^src/|^Dockerfile$'", returnStdout: true).trim()
           if (changes) {
             echo 'Dockerfile was changed will create a new build'
             env.PUSH_IMAGE = 'TRUE'
