@@ -108,10 +108,10 @@ pipeline{
   }
   post {
     success {
-        emailext (attachLog: true, to: 'unmask3230@gmail.com' )
+        emailext (attachLog: true, subject:, body:, to: 'unmask3230@gmail.com' )
     }
     failure {
-        emailext (attachLog: true, bo: 'unmask3230@gmail.com')
+        emailext (attachLog: true, subject:, body:, to: 'unmask3230@gmail.com')
     }
   }
   // add none default messages
