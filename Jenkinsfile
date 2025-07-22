@@ -54,6 +54,23 @@ pipeline{
         }
       }
     }
+    stage('Check for Dockerfile changes') {
+      steps {
+        script {
+          def changes = sh(script: "git diff --name-only HEAD~1 HEAD | grep -E '^src/|^Dockerfile$'", returnStdout: true) == 0
+          if (changes) {
+            echo 'Dockerfile was changed will create a new build'
+            env.PUSH_IMAGE = 'TRUE'
+            return
+          }
+          else {
+            echo 'Dockerfile was not changed, skipping build'
+            env.PUSH_IMAGE = 'FALSE'
+            return
+          }
+        }
+      }
+    }
     stage('Build containers'){
       steps{
         echo "building container"
@@ -66,13 +83,11 @@ pipeline{
         sh 'sleep 10'
       }
     }
-    stage('Deploy to nexus'){
-      steps{
-        echo "deploy to nexus repo"
-        //sh 'mvn deploy -s ./settings.xml'
-      }
-    }
+   
     stage('Push to Docker Hub'){
+      when {
+        expression { env.PUSH_IMAGE == 'TRUE' }
+      }
       steps{
         withCredentials([usernamePassword(credentialsId: 'Docker-login', passwordVariable: 'Docker_pass', usernameVariable: 'Docker_user')]) {
           sh '''
@@ -82,7 +97,10 @@ pipeline{
             set -e
             echo "$Docker_pass" | docker login -u "$Docker_user" --password-stdin
             docker tag tomcat-jenk doyinayoola1/tomcat-jenk:build-${BUILD_ID}
-            docker push doyinayoola1/tomcat-jenk:latest
+            docker push doyinayoola1/tomcat-jenk:build-${BUILD_ID}
+            echo 'Pushed to Docker Hub successfully'
+            docker logout
+            rm -rf tmp_docker_home
           '''
         }
       }
