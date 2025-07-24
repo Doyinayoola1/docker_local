@@ -105,6 +105,17 @@ pipeline{
         }
       }
     }
+    stage('Update kubernetes deployment'){
+      steps{
+        script {
+          echo 'Updating Kubernetes yaml file with new image'
+          sh '''
+            sed -i 's/tomcat-jenk:.*/tomcat-jenk:build-${BUILD_ID}/g' kubernetes-note.yaml
+            echo 'Kubernetes yaml file updated successfully'
+          '''
+        }
+      }
+    }
     stage('Deploy to Kubernetes'){
       steps{
         script {
@@ -113,6 +124,10 @@ pipeline{
             echo 'Deploying to Kubernetes'
             sh '''
               kubectl apply -f kubernetes-note.yaml
+              echo 'Deployment to Kubernetes completed successfully'
+              sleep 5
+              git restore kubernetes-note.yaml    
+              echo 'Restored kubernetes-note.yaml to original state'
             '''
           }
         }
