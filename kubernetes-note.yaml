@@ -30,7 +30,7 @@ spec:
     spec: 
       containers: 
         - name: test-app 
-          image: doyinayoola1/tomcat-jenk:latest
+          image: doyinayoola1/tomcat-jenk:build-98
           ports: 
             - containerPort: 8080 
           livenessProbe:

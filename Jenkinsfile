@@ -106,6 +106,9 @@ pipeline{
       }
     }
     stage('Update kubernetes deployment'){
+      when {
+        expression { env.PUSH_IMAGE == 'TRUE' }
+      }
       steps{
         script {
           echo 'Updating Kubernetes yaml file with new image'
