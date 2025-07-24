@@ -109,11 +109,11 @@ pipeline{
       steps{
         script {
           echo 'Updating Kubernetes yaml file with new image'
-          sh '''
+          sh """
             sed -i 's/tomcat-jenk:.*/tomcat-jenk:build-${BUILD_ID}/g' kubernetes-note.yaml
             echo 'Kubernetes yaml file updated successfully'
-            sh 'cat kubernetes-note.yaml'
-          '''
+            cat kubernetes-note.yaml'
+          """
         }
       }
     }
