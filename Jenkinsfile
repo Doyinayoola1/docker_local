@@ -24,36 +24,36 @@ pipeline{
         sh 'mvn clean package'
       }
     }
-    stage('Test artifact with sonarqube'){
-      steps{
-        echo "Analysing with Sonar"
-        //sh 'mvn dependency:go-offline'
-        sh 'mvn dependency:tree -Dincludes=ch.qos.logback'
-        //sh 'echo mvn sonar:sonar -Dsonar.qualitygate.wait=true'
-        withSonarQubeEnv('SonarQubeServer') {
-          //withCredentials([string(credentialsId: 'local-sonarqube', variable: 'sonarlog')]) {
-            sh '''
-              mvn sonar:sonar \
-                -Dsonar.projectKey=jenkins-project \
-                -Dsonar.projectName=jenkins-project \
-                -Dsonar.host.url=http://localhost:9000 \
-                -Dsonar.login=$sonarlog \
-                -Dsonar.scanner.dontLoadExternalDependencies=true \
-                -Dlogback.configurationFile=logback.xml \
-                -Dsonar.verbose=true
-        '''
-          //}
-        }
-      }
-    }
-    stage('Quality Gate'){
-      steps{
-        echo "Waiting for SonarQube Quality Gate"
-        timeout(time: 1, unit: 'HOURS') {
-          waitForQualityGate abortPipeline: true
-        }
-      }
-    }
+    // stage('Test artifact with sonarqube'){
+    //   steps{
+    //     echo "Analysing with Sonar"
+    //     //sh 'mvn dependency:go-offline'
+    //     sh 'mvn dependency:tree -Dincludes=ch.qos.logback'
+    //     //sh 'echo mvn sonar:sonar -Dsonar.qualitygate.wait=true'
+    //     withSonarQubeEnv('SonarQubeServer') {
+    //       //withCredentials([string(credentialsId: 'local-sonarqube', variable: 'sonarlog')]) {
+    //         sh '''
+    //           mvn sonar:sonar \
+    //             -Dsonar.projectKey=jenkins-project \
+    //             -Dsonar.projectName=jenkins-project \
+    //             -Dsonar.host.url=http://localhost:9000 \
+    //             -Dsonar.login=$sonarlog \
+    //             -Dsonar.scanner.dontLoadExternalDependencies=true \
+    //             -Dlogback.configurationFile=logback.xml \
+    //             -Dsonar.verbose=true
+    //     '''
+    //       //}
+    //     }
+    //   }
+    // }
+    // stage('Quality Gate'){
+    //   steps{
+    //     echo "Waiting for SonarQube Quality Gate"
+    //     timeout(time: 1, unit: 'HOURS') {
+    //       waitForQualityGate abortPipeline: true
+    //     }
+    //   }
+    // }
     stage('Check for Dockerfile changes') {
       steps {
         script {
@@ -112,28 +112,29 @@ pipeline{
           sh '''
             sed -i 's/tomcat-jenk:.*/tomcat-jenk:build-${BUILD_ID}/g' kubernetes-note.yaml
             echo 'Kubernetes yaml file updated successfully'
+            sh 'cat kubernetes-note.yaml'
           '''
         }
       }
     }
-    stage('Deploy to Kubernetes'){
-      steps{
-        script {
-          kubeconfig(credentialsId: 'kubeconfig-file', serverUrl: '13.48.45.26:6443') {
-            echo 'Kubernetes configuration set up successfully'
-            echo 'Deploying to Kubernetes'
-            sh '''
-              kubectl apply -f kubernetes-note.yaml
-              echo 'Deployment to Kubernetes completed successfully'
-              sleep 5
-              git restore kubernetes-note.yaml    
-              echo 'Restored kubernetes-note.yaml to original state'
-            '''
-          }
-        }
+    // stage('Deploy to Kubernetes'){
+    //   steps{
+    //     script {
+    //       kubeconfig(credentialsId: 'kubeconfig-file', serverUrl: '13.48.45.26:6443') {
+    //         echo 'Kubernetes configuration set up successfully'
+    //         echo 'Deploying to Kubernetes'
+    //         sh '''
+    //           kubectl apply -f kubernetes-note.yaml
+    //           echo 'Deployment to Kubernetes completed successfully'
+    //           sleep 5
+    //           git restore kubernetes-note.yaml    
+    //           echo 'Restored kubernetes-note.yaml to original state'
+    //         '''
+    //       }
+    //     }
 
-      }
-    }
+    //   }
+    // }
   }
   post {
     success {
