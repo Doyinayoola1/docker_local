@@ -120,24 +120,24 @@ pipeline{
         }
       }
     }
-    // stage('Deploy to Kubernetes'){
-    //   steps{
-    //     script {
-    //       kubeconfig(credentialsId: 'kubeconfig-file', serverUrl: '13.48.45.26:6443') {
-    //         echo 'Kubernetes configuration set up successfully'
-    //         echo 'Deploying to Kubernetes'
-    //         sh '''
-    //           kubectl apply -f kubernetes-note.yaml
-    //           echo 'Deployment to Kubernetes completed successfully'
-    //           sleep 5
-    //           git restore kubernetes-note.yaml    
-    //           echo 'Restored kubernetes-note.yaml to original state'
-    //         '''
-    //       }
-    //     }
+    stage('Deploy to Kubernetes'){
+      steps{
+        script {
+          kubeconfig(credentialsId: 'kubeconfig-file', serverUrl: '13.48.45.26:6443') {
+            echo 'Kubernetes configuration set up successfully'
+            echo 'Deploying to Kubernetes'
+            sh '''
+              kubectl apply -f kubernetes-note.yaml
+              echo 'Deployment to Kubernetes completed successfully'
+              sleep 5
+              git restore kubernetes-note.yaml    
+              echo 'Restored kubernetes-note.yaml to original state'
+            '''
+          }
+        }
 
-    //   }
-    // }
+      }
+    }
   }
   post {
     success {
