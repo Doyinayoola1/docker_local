@@ -112,7 +112,7 @@ pipeline{
           sh """
             sed -i 's/tomcat-jenk:.*/tomcat-jenk:build-${BUILD_ID}/g' kubernetes-note.yaml
             echo 'Kubernetes yaml file updated successfully'
-            cat kubernetes-note.yaml'
+            cat kubernetes-note.yaml
           """
         }
       }
